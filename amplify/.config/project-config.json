@@ -1,0 +1,17 @@
+{
+  "projectName": "awsiottest",
+  "version": "3.0",
+  "frontend": "javascript",
+  "javascript": {
+    "framework": "react-native",
+    "config": {
+      "SourceDir": "/",
+      "DistributionDir": "/",
+      "BuildCommand": "expo start",
+      "StartCommand": "expo start"
+    }
+  },
+  "providers": [
+    "awscloudformation"
+  ]
+}

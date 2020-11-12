@@ -1,43 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
 
-import Amplify, { API, graphqlOperation } from 'aws-amplify'
-import config from './aws-exports'
-Amplify.configure(config)
-import { listBlogs } from './graphql/queries'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+
+const Stack = createStackNavigator()
+
+import { StatusBar } from 'expo-status-bar'
+
+import Home from './pages/Home'
 
 export default function App() {
-  const [blogs, setBlogs] = useState([])
-
-  useEffect(() => {
-    fetchBlogs()
-  }, [])
-
-  async function fetchBlogs() {
-    try {
-      const blogData = await API.graphql(graphqlOperation(listBlogs))
-      const blogs = blogData.data.listBlogs.items
-      setBlogs(blogs)
-    } catch (err) {
-      console.log('error fetching blogs')
-    }
-  }
-
   return (
-    <View style={styles.container}>
-      <Text>Hello world!</Text>
-      <Text>{JSON.stringify({ blogs }, null, 2)}</Text>
+    <>
       <StatusBar style="auto" />
-    </View>
-  );
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={Home} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
+  )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
